@@ -1,3 +1,3 @@
-# static site template
+# Countdown Numbers Game Solver
 
-live at https://andreaschristianson.github.io/static-site-template/
+live at https://andreaschristianson.github.io/countdown-numbers-solver/

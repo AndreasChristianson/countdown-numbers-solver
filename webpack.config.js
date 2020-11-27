@@ -1,12 +1,12 @@
-const path = require('path');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-process.traceDeprecation = true;
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+process.traceDeprecation = true
 
 module.exports = {
   entry: path.join(__dirname, 'src', 'app.js'),
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   devtool: 'inline-source-map',
   module: {
@@ -15,15 +15,15 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader',
         },
         resolve: {
-          extensions: ['.js', '.jsx']
-        }
+          extensions: ['.js', '.jsx'],
+        },
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -32,15 +32,15 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
-      }
-    ]
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src', 'index.html'),
       favicon: path.join(__dirname, 'src', 'favicon.svg'),
       filename: 'index.html',
-      inject: 'body'
+      inject: 'body',
     }),
   ],
   optimization: {
@@ -58,6 +58,6 @@ module.exports = {
   },
   devServer: {
     contentBase: './dist',
-    open: true
-  }
-};
+    open: true,
+  },
+}
