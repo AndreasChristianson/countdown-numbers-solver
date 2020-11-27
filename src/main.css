@@ -1,0 +1,17 @@
+@media (prefers-color-scheme: dark) {
+  html {
+    background: #333;
+    color: white;
+  }
+  :link {
+    color: lightblue;
+  }
+  :visited {
+    color: plum;
+  }
+}
+
+body {
+  max-width: 600px;
+  margin: auto;
+}
