@@ -12,7 +12,7 @@ const InputField = styled(Field)`
 export const CalculatorForm = ({
   operations,
   setOperations,
-  numbers,
+  numbers: initialNumbers,
   setNumbers,
   target,
   setTarget,
@@ -21,26 +21,27 @@ export const CalculatorForm = ({
     <Formik
       initialValues={{
         operations: operations.map(({ opCode }) => opCode),
-        numbers: numbers.join(','),
+        numbers: initialNumbers.join(' '),
         target,
       }}
       validationSchema={Yup.object({
         numbers: Yup.string()
-          .matches(/^(-?(\d+)(\.\d+)?[,| ;]?)+$/u)
+          .matches(/^(-?(\d+)(\.\d+)?\s*){2,}$/u, 'At least two, base 10, whitespace delineated, numbers.')
           .required('Required'),
         target: Yup.number().required('Required'),
       })}
       onSubmit={(values) => {
-        console.log(values.numbers.split(/[,| ;]/u))
         setOperations(values.operations.map((opCode) => ops[opCode]))
-        setNumbers(values.numbers.split(/[,| ;]/u).map(n=>BigNumber(n)))
-        setTarget(BigNumber(values.target))
+        const numbers = values.numbers.split(/\s+/u)
+        setNumbers(numbers)
+        setTarget(values.target)
+        // console.log(numbers, values.target, values.operations)
       }}
     >
       <Form>
         <fieldset>
           <legend>Input game parameters</legend>
-          <label htmlFor="numbers">Numbers: (comma separated)</label>
+          <label htmlFor="numbers">Numbers: (space separated)</label>
           <div>
             <InputField name="numbers" type="text" />
             <ErrorMessage name="numbers" />
