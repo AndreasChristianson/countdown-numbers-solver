@@ -1,13 +1,8 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'devicon/fonts/devicon.eot'
-import 'fontsource-merriweather'
 import 'fontsource-open-sans'
 import ReactDOM from 'react-dom'
 import React from 'react'
+import './main.css'
 
-import { Homepage } from './pages/Homepage';
+import { Calculator } from './pages/Calculator'
 
-ReactDOM.render(
-  <Homepage />,
-  document.getElementById('root')
-);
+ReactDOM.render(<Calculator />, document.getElementById('root'))
