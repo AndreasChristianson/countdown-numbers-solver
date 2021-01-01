@@ -2,7 +2,7 @@ import Chance from 'chance'
 import { findSolutions as v1 } from './find-solutions'
 import { findSolutions as v2 } from './find-solutions-v2'
 import { findSolutions as v3 } from './find-solutions-v3'
-import { findSolutions as v4 } from './find-solutions-v4'
+import { findSolutions as v4 } from './find-solutions-v4.worker'
 import ops from '../operations'
 
 describe.each([v4])('find solutions %#', (findSolutions) => {

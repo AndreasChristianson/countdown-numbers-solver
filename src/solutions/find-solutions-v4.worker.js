@@ -1,3 +1,5 @@
+import ops from '../operations'
+
 const formatSolutions = (solutions, target) => {
   return solutions.map(solution => ({
     distance: solution.distance.toString(),
@@ -6,12 +8,21 @@ const formatSolutions = (solutions, target) => {
     .sort((a, b) => a.steps.length - b.steps.length)
 }
 
-export const findSolutions = ({ numbers: rawNumbers, target: rawTarget, operations }) => {
+onmessage = ({ data: { numbers: rawNumbers, target: rawTarget, operations: rawOperations } }) => {
   let solutions = []
   let record = Infinity
+  const operations = rawOperations.map(opCode => ops[opCode])
   const numbers = rawNumbers.map(Number)
   const used = new Array(numbers.length)
   const target = Number(rawTarget)
+  let solutionsEvaluated = 0;
+  let lastUpdate = Date.now()
+
+  const postUpdate = () => {
+    postMessage({
+      inProgress: solutionsEvaluated
+    });
+  }
 
   const findSolutionsRecursive = ({
     steps,
@@ -31,6 +42,7 @@ export const findSolutions = ({ numbers: rawNumbers, target: rawTarget, operatio
             numbers.push(result) - 1
             used[i] = true
             used[j] = true
+            solutionsEvaluated++
 
             const step = {
               left: l,
@@ -62,6 +74,10 @@ export const findSolutions = ({ numbers: rawNumbers, target: rawTarget, operatio
             used[j] = false
             steps.pop()
           }
+          if(Date.now() - lastUpdate>1000){
+            lastUpdate = Date.now();
+            postUpdate()
+          }
           combinePair(left, right)
           if (!operation.symmetric) {
             combinePair(right, left)
@@ -69,12 +85,20 @@ export const findSolutions = ({ numbers: rawNumbers, target: rawTarget, operatio
         }
       }
     }
-    return solutions
   }
 
   findSolutionsRecursive({
     steps: []
   })
 
-  return formatSolutions(solutions, target)
+  postUpdate()
+
+  const formattedSolutions = formatSolutions(solutions, target)
+
+  postMessage({
+    solutions: formattedSolutions.slice(0, 100),
+    numberFound: solutions.length,
+    offBy: solutions[0]?.distance,
+    shortest: formattedSolutions[0]?.steps.length
+  })
 }
