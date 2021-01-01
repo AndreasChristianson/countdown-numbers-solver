@@ -4,34 +4,34 @@ export default {
     description: 'Addition',
     applyNativeOperation: (left, right) => left + right,
     symmetric: true,
-    symbol: '+'
+    symbol: '+',
   },
   subtract: {
     opCode: 'subtract',
     description: 'Subtraction',
     applyNativeOperation: (left, right) => left - right,
     symmetric: false,
-    symbol: '-'
+    symbol: '-',
   },
   multiply: {
     opCode: 'multiply',
     description: 'Multiplication',
     applyNativeOperation: (left, right) => left * right,
     symmetric: true,
-    symbol: '*'
+    symbol: '*',
   },
   divide: {
     opCode: 'divide',
     description: 'Division',
     applyNativeOperation: (left, right) => left / right,
     symmetric: false,
-    symbol: '/'
+    symbol: '/',
   },
   exponentiation: {
     opCode: 'exponentiation',
     description: 'Power',
     applyNativeOperation: (left, right) => left ** right,
     symmetric: false,
-    symbol: '^'
+    symbol: '^',
   },
 }

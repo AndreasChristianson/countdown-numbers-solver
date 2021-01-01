@@ -10,24 +10,14 @@ export const Calculator = () => {
   const [formData, setFormData] = useState({
     numbersAsString: '',
     target: 0,
-    operations: [
-      'add',
-      'subtract',
-      'multiply',
-      'divide'
-    ]
+    operations: ['add', 'subtract', 'multiply', 'divide'],
   })
 
   return (
     <PageContainer>
       <Title />
-      <CalculatorForm
-        formData={formData}
-        setFormData={setFormData}
-      />
-      <Solutions
-        formData={formData}
-      />
+      <CalculatorForm formData={formData} setFormData={setFormData} />
+      <Solutions formData={formData} />
     </PageContainer>
   )
 }

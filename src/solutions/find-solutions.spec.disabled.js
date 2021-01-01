@@ -13,14 +13,9 @@ describe.each([v4])('find solutions %#', (findSolutions) => {
     const numbers = chance.n(chance.d20, chance.d6())
     const target = chance.natural({
       min: 100,
-      max: 999
+      max: 999,
     })
-    const operations = [
-      ops.add,
-      ops.subtract,
-      ops.multiply,
-      ops.divide,
-    ]
+    const operations = [ops.add, ops.subtract, ops.multiply, ops.divide]
     parameters = { numbers, target, operations }
   })
 
@@ -40,9 +35,7 @@ describe.each([v4])('find solutions %#', (findSolutions) => {
 
     expect(solutions).toContainEqual({
       distance: '0',
-      steps: [
-        '1 + 1 = 2'
-      ]
+      steps: ['1 + 1 = 2'],
     })
   })
 
@@ -54,10 +47,7 @@ describe.each([v4])('find solutions %#', (findSolutions) => {
 
     expect(solutions).toContainEqual({
       distance: '0',
-      steps: [
-        '1 + 1 = 2',
-        '1 + 2 = 3'
-      ]
+      steps: ['1 + 1 = 2', '1 + 2 = 3'],
     })
   })
 
@@ -74,8 +64,8 @@ describe.each([v4])('find solutions %#', (findSolutions) => {
         '50 - 10 = 40',
         '25 * 40 = 1000',
         '1 + 12 = 13',
-        '1000 - 13 = 987'
-      ]
+        '1000 - 13 = 987',
+      ],
     })
   })
 
@@ -92,8 +82,8 @@ describe.each([v4])('find solutions %#', (findSolutions) => {
         '25 * 57 = 1425',
         '12 / 6 = 2',
         '1425 - 2 = 1423',
-        '4 * 1423 = 5692'
-      ]
+        '4 * 1423 = 5692',
+      ],
     })
   })
 })

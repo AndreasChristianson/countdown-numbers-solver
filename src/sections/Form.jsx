@@ -8,16 +8,16 @@ const InputField = styled(Field)`
   width: 100%;
 `
 
-export const CalculatorForm = ({
-  formData,
-  setFormData
-}) => {
+export const CalculatorForm = ({ formData, setFormData }) => {
   return (
     <Formik
       initialValues={formData}
       validationSchema={Yup.object({
         numbersAsString: Yup.string()
-          .matches(/^(-?(\d+)(\.\d+)?\s*){2,}$/u, 'At least two, base 10, whitespace delineated, numbers.')
+          .matches(
+            /^(-?(\d+)(\.\d+)?\s*){2,}$/u,
+            'At least two, base 10, whitespace delineated, numbers.'
+          )
           .required('Required'),
         target: Yup.number().required('Required'),
       })}

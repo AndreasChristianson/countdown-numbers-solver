@@ -42,7 +42,7 @@ export const Solutions = ({ formData }) => {
         })
         break
       default:
-        console.log({opType, data})
+        console.log({ opType, data })
     }
   }
 
