@@ -1,53 +1,5 @@
 import ops from '../operations'
-
-const formatSolution = (steps) => {
-  return {
-    steps: steps.map(
-      (step) =>
-        `${step.left} ${step.operation.symbol} ${step.right} = ${step.result}`
-    ),
-  }
-}
-
-class SolutionEvaluator {
-  constructor(target, postMessage) {
-    this.target = target
-    this.postMessage = postMessage
-    this.distance = Infinity
-    this.solutionsEvaluated = 0
-    this.lastUpdate = Date.now()
-  }
-
-  evaluateSolution(solution, result) {
-    this.solutionsEvaluated++
-    if (Date.now() - this.lastUpdate > 1000) {
-      this.postCounts()
-    }
-    const distance = Math.abs(result - this.target)
-    if (Number.isNaN(distance) || distance > this.distance) {
-      return
-    }
-    if (distance < this.distance) {
-      this.distance = distance
-      postMessage({
-        opType: 'newMinDistanceFound',
-        distance,
-      })
-    }
-    postMessage({
-      opType: 'addSolution',
-      solution: formatSolution(solution),
-    })
-  }
-
-  postCounts() {
-    this.lastUpdate = Date.now()
-    postMessage({
-      opType: 'updateEvalCount',
-      evalCount: this.solutionsEvaluated,
-    })
-  }
-}
+import { SolutionEvaluator } from './SolutionEvaluator'
 
 const iterateSolutions = (numbers, operations, evaluator) => {
   const used = new Array(numbers.length)
@@ -105,5 +57,10 @@ export const findSolutions = (data, postMessage) => {
   const operations = rawOperations.map((opCode) => ops[opCode])
 
   const evaluator = new SolutionEvaluator(target, postMessage)
+
   iterateSolutions(numbers, operations, evaluator)
+  postMessage({
+    opType: 'overallStatus',
+    status: 'complete',
+  })
 }
