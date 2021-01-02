@@ -7,6 +7,7 @@ export const Solutions = ({ formData }) => {
   const [distance, setDistance] = useState(Infinity)
   const [solutions, setSolutions] = useState([])
   const [solutionsEvaluated, setSolutionsEvaluated] = useState(0)
+  const [status, setStatus] = useState('in progress...')
   const cleanup = () => {
     worker.terminate()
   }
@@ -18,6 +19,7 @@ export const Solutions = ({ formData }) => {
     setDistance(Infinity)
     setSolutions([])
     setSolutionsEvaluated(0)
+    setStatus('in progress...')
     newWorker.postMessage({
       numbers,
       target: formData.target,
@@ -41,6 +43,9 @@ export const Solutions = ({ formData }) => {
           return oldSolutions
         })
         break
+      case 'complete':
+        setStatus('complete')
+        break
       default:
         console.log({ opType, data })
     }
@@ -48,6 +53,7 @@ export const Solutions = ({ formData }) => {
 
   return (
     <div>
+      <h2>{`Search: ${status}`}</h2>
       <div>{`Solutions evaluated: ${solutionsEvaluated.toLocaleString()}`}</div>
       <div>{`${solutions.length.toLocaleString()} solutions found with distance to target of ${distance}`}</div>
       <div>{`Displaying up to 10 of them`}</div>

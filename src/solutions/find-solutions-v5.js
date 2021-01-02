@@ -60,7 +60,6 @@ export const findSolutions = (data, postMessage) => {
 
   iterateSolutions(numbers, operations, evaluator)
   postMessage({
-    opType: 'overallStatus',
-    status: 'complete',
+    opType: 'complete'
   })
 }
