@@ -3,8 +3,4 @@ import styled from 'styled-components'
 
 const StepContainer = styled.pre``
 
-export const Step = ({ step }) => (
-  <StepContainer>
-    {step}
-  </StepContainer>
-)
+export const Step = ({ step }) => <StepContainer>{step}</StepContainer>
